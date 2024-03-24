@@ -1,4 +1,21 @@
-chrome.action.onClicked.addListener(function (tab) {
-  // Your function goes here. For example, you can send a message to the content script:
-  chrome.tabs.sendMessage(tab.id, { action: 'activate_extension' });
-});
+// background.js
+
+(function (chrome) {
+  let isExtActive = false;
+
+  chrome.action.onClicked.addListener((tab) => {
+    isExtActive = !isExtActive;
+
+    chrome.scripting.executeScript(
+      {
+        target: { tabId: tab.id },
+        files: ['contentScript.js'],
+      },
+      () => {
+        chrome.tabs.sendMessage(tab.id, {
+          action: isExtActive ? 'activate_extension' : 'deactivate_extension',
+        });
+      }
+    );
+  });
+})(chrome);
