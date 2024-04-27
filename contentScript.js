@@ -1,6 +1,6 @@
 // contentScript.js
 (function (chrome) {
-  const OUTLINE = 'rgb(255, 0, 0) double 2px';
+  const OUTLINE = 'rgb(200, 34, 255) double 5px';
 
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === 'activate_extension') {
